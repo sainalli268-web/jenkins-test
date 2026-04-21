@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mycompany</groupId>
+	<groupId>86208f84-f2f2-4d2b-8da0-5e4b1dff121a</groupId>
 	<artifactId>jenkinstest</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
@@ -25,11 +25,28 @@
 				<version>3.2.0</version>
 			</plugin>
 			<plugin>
-				<groupId>org.mule.tools.maven</groupId>
-				<artifactId>mule-maven-plugin</artifactId>
-				<version>${mule.maven.plugin.version}</version>
-				<extensions>true</extensions>
-			</plugin>
+  <groupId>org.mule.tools.maven</groupId>
+  <artifactId>mule-maven-plugin</artifactId>
+  <version>${mule.maven.plugin.version}</version>
+  <extensions>true</extensions>
+  <configuration>
+	  <classifier>mule-application</classifier>
+    <cloudhub2Deployment>
+      <uri>https://anypoint.mulesoft.com</uri>
+      <provider>MC</provider>
+      <environment>Sandbox</environment>
+      <target>Cloudhub-US-East-2</target>
+      <muleVersion>4.11.3:4e</muleVersion>
+		<releaseChannel>EDGE</releaseChannel>
+            <javaVersion>17</javaVersion>
+      <username>${user}</username>
+      <password>${pass}</password>
+      <applicationName>${applicationName}</applicationName>
+      <replicas>1</replicas>
+      <vCores>0.1</vCores>
+    </cloudhub2Deployment>
+  </configuration>
+</plugin>
 		</plugins>
 	</build>
 
@@ -74,5 +91,12 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
+  <distributionManagement>
+    <repository>
+      <id>exchange</id>
+      <name>Corporate Repository</name>
+      <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/86208f84-f2f2-4d2b-8da0-5e4b1dff121a/maven</url>
+      <layout>default</layout>
+    </repository>
+  </distributionManagement>
 </project>
